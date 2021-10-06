@@ -7,6 +7,11 @@ Username: rviews
 show ip route x.x.x.x/32
 show bgp x.x.x.x/32
 ```
+![image](https://user-images.githubusercontent.com/48878229/136260074-a3ee0e8c-86ac-48f8-adf5-bdf9ae694a31.png)
+
+_show bgp 217.197.201.41_
+https://docs.google.com/document/d/1i6S2TYob8R35xfSDf1Qgl58XSpqXBP7EDTJyRLrHskQ/edit?usp=sharing
+
 2. Создайте dummy0 интерфейс в Ubuntu. Добавьте несколько статических маршрутов. Проверьте таблицу маршрутизации.
 
 3. Проверьте открытые TCP порты в Ubuntu, какие протоколы и приложения используют эти порты? Приведите несколько примеров.
