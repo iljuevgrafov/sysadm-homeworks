@@ -13,20 +13,20 @@ https://docs.google.com/document/d/1i6S2TYob8R35xfSDf1Qgl58XSpqXBP7EDTJyRLrHskQ/
 2. Создайте dummy0 интерфейс в Ubuntu. Добавьте несколько статических маршрутов. Проверьте таблицу маршрутизации.
 ![image](https://user-images.githubusercontent.com/48878229/136662242-15bfb252-0912-4ca3-8063-8d7da61dc5ab.png)
 
-Создать адаптеры:
-![image](https://user-images.githubusercontent.com/48878229/136260074-a3ee0e8c-86ac-48f8-adf5-bdf9ae694a31.png)
-Присвоить адаптерам адреса:
-sudo ip addr add 192.168.1.1/24 dev dummy0
-sudo ip addr add 192.168.1.2/24 dev dummy1
+Создать адаптеры:  
+![image](https://user-images.githubusercontent.com/48878229/136260074-a3ee0e8c-86ac-48f8-adf5-bdf9ae694a31.png)  
+Присвоить адаптерам адреса:  
+sudo ip addr add 192.168.1.1/24 dev dummy0  
+sudo ip addr add 192.168.1.2/24 dev dummy1  
 
-Включить адаптеры:
-sudo ifconfig dummy0 up
-sudo ifconfig dummy1 up
+Включить адаптеры:  
+sudo ifconfig dummy0 up  
+sudo ifconfig dummy1 up  
 
-Добавить маршруты:
-sudo route add -net 192.168.3.0 netmask 255.255.255.0 dev dummy0
-sudo route add -host 192.168.2.100 dev dummy1
-![image](https://user-images.githubusercontent.com/48878229/136665470-5905156f-e988-48e9-b479-dfb866bcb326.png)
+Добавить маршруты:  
+sudo route add -net 192.168.3.0 netmask 255.255.255.0 dev dummy0  
+sudo route add -host 192.168.2.100 dev dummy1  
+![image](https://user-images.githubusercontent.com/48878229/136665470-5905156f-e988-48e9-b479-dfb866bcb326.png)  
 
 
 3. Проверьте открытые TCP порты в Ubuntu, какие протоколы и приложения используют эти порты? Приведите несколько примеров.
