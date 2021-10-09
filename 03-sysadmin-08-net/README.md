@@ -31,9 +31,20 @@ sudo route add -host 192.168.2.100 dev dummy1
 
 3. Проверьте открытые TCP порты в Ubuntu, какие протоколы и приложения используют эти порты? Приведите несколько примеров.
 
+sudo netstat -tulpn
+![image](https://user-images.githubusercontent.com/48878229/136665536-9519df20-0fdb-42dd-bd86-fe9e5d27a03e.png)
+
+
 4. Проверьте используемые UDP сокеты в Ubuntu, какие протоколы и приложения используют эти порты?
 
+ss -u -a
+![image](https://user-images.githubusercontent.com/48878229/136665779-a37c87d9-6cc2-4c58-a9ee-7c1c3700db18.png)
+
+
 5. Используя diagrams.net, создайте L3 диаграмму вашей домашней сети или любой другой сети, с которой вы работали. 
+
+![diagram](https://user-images.githubusercontent.com/48878229/136668302-23a2ee49-824e-4912-bdbb-d4868af85c45.jpg)
+
 
  ---
 ## Задание для самостоятельной отработки (необязательно к выполнению)
