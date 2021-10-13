@@ -79,7 +79,8 @@ _server {
 _apt install bird2
 systemctl enable bir_
 
-_vim /etc/bird/bird.conf  
+_Пример конфига:_
+_vim /etc/bird/bird.conf  _
 
 _protocol kernel {  
  ipv4 {  
@@ -100,7 +101,7 @@ protocol rip {
 protocol direct {  
  ipv4; # Connect to default IPv4 table  
  interface "dummy*";  
-}
+}_
 
 8*. Установите Netbox, создайте несколько IP префиксов, используя curl проверьте работу API.
 
