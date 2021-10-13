@@ -51,6 +51,30 @@ ss -u -a
 
 6*. Установите Nginx, настройте в режиме балансировщика TCP или UDP.
 
+<!--
+   Пример конфига tcp-балансировщика:
+
+   upstream backend {
+   server 10.0.0.100:44433;
+   server 10.0.0.200:44433;
+}
+
+server {
+   listen 80;
+   location / {
+       proxy_read_timeout 1800;
+       proxy_connect_timeout 1800;
+       proxy_send_timeout 1800;
+       send_timeout 1800;
+       proxy_set_header        Accept-Encoding   "";
+       proxy_set_header        X-Forwarded-By    $server_addr:$server_port;
+       proxy_set_header        X-Forwarded-For   $remote_addr;
+       proxy_set_header        X-Forwarded-Proto $scheme;
+       proxy_set_header Host $host;
+       proxy_set_header X-Real-IP $remote_addr;
+       proxy_pass http://backend;
+   }
+ -->
 7*. Установите bird2, настройте динамический протокол маршрутизации RIP.
 
 8*. Установите Netbox, создайте несколько IP префиксов, используя curl проверьте работу API.
