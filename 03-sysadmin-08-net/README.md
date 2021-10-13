@@ -79,7 +79,7 @@ _server {
 _apt install bird2
 systemctl enable bir_
 
-_Пример конфига:_
+_Пример конфига:_  
 _vim /etc/bird/bird.conf  _
 
 _protocol kernel {  
