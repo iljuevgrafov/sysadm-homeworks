@@ -76,6 +76,32 @@ _server {
  
 7*. Установите bird2, настройте динамический протокол маршрутизации RIP.
 
+_apt install bird2
+systemctl enable bir_
+
+_vim /etc/bird/bird.conf  
+
+_protocol kernel {  
+ ipv4 {  
+ export all; # Default is export none  
+ };  
+ persist; # Don't remove routes on BIRD shutdown  
+}  
+protocol device {  
+}  
+protocol rip {  
+ ipv4 {  
+ import all;  
+ export all;  
+ };  
+ interface "ens4";  
+ interface "ens5";  
+}  
+protocol direct {  
+ ipv4; # Connect to default IPv4 table  
+ interface "dummy*";  
+}
+
 8*. Установите Netbox, создайте несколько IP префиксов, используя curl проверьте работу API.
 
  ---
