@@ -51,15 +51,14 @@ ss -u -a
 
 6*. Установите Nginx, настройте в режиме балансировщика TCP или UDP.
 
+_Пример конфига tcp-балансировщика:_
 
-   Пример конфига tcp-балансировщика:
-
-   upstream backend {
+   _upstream backend {
    server 10.0.0.100:44433;
    server 10.0.0.200:44433;
-}
+}_
 
-server {
+_server {
    listen 80;
    location / {
        proxy_read_timeout 1800;
@@ -73,7 +72,7 @@ server {
        proxy_set_header Host $host;
        proxy_set_header X-Real-IP $remote_addr;
        proxy_pass http://backend;
-   }
+   }_
  
 7*. Установите bird2, настройте динамический протокол маршрутизации RIP.
 
