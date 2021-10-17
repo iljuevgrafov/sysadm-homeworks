@@ -21,6 +21,7 @@ SSLCertificateKeyFile /etc/ssl/private/server.key_
 
 
 4. Проверьте на TLS уязвимости произвольный сайт в интернете.
+![image](https://user-images.githubusercontent.com/48878229/137642985-8c25dfb0-468c-4ed5-8673-76cd6b292b61.png)
 
 5. Установите на Ubuntu ssh сервер, сгенерируйте новый приватный ключ. Скопируйте свой публичный ключ на другой сервер. Подключитесь к серверу по SSH-ключу.
  
