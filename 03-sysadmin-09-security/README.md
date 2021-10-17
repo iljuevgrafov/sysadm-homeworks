@@ -6,6 +6,20 @@
 
 3. Установите apache2, сгенерируйте самоподписанный сертификат, настройте тестовый сайт для работы по HTTPS.
 
+_sudo apt install apache2_
+
+_Генерация сертификата:
+openssl req -new -x509 -days 30 -keyout server.key -out server.pem
+Настройки apache:
+sudo a2enmod ssl
+sudo a2ensite default-ssl
+sudo vim /etc/apache2/sites-enabled/default-ssl
+SSLEngine on
+SSLProtocol all -SSLv2
+SSLCertificateFile    /etc/ssl/certs/server.pem
+SSLCertificateKeyFile /etc/ssl/private/server.key_
+
+
 4. Проверьте на TLS уязвимости произвольный сайт в интернете.
 
 5. Установите на Ubuntu ssh сервер, сгенерируйте новый приватный ключ. Скопируйте свой публичный ключ на другой сервер. Подключитесь к серверу по SSH-ключу.
