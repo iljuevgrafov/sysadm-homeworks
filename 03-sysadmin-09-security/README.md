@@ -27,6 +27,9 @@ SSLCertificateKeyFile /etc/ssl/private/server.key_
  
 6. Переименуйте файлы ключей из задания 5. Настройте файл конфигурации SSH клиента, так чтобы вход на удаленный сервер осуществлялся по имени сервера.
 
+![image](https://user-images.githubusercontent.com/48878229/137793213-0930c916-5c56-43b2-bfeb-939b96b6cbd8.png)
+
+
 7. Соберите дамп трафика утилитой tcpdump в формате pcap, 100 пакетов. Откройте файл pcap в Wireshark.
 
  ---
