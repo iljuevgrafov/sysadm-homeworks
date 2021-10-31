@@ -74,6 +74,38 @@ for result in result_os.split('\n'):
 
 
 4. Наша команда разрабатывает несколько веб-сервисов, доступных по http. Мы точно знаем, что на их стенде нет никакой балансировки, кластеризации, за DNS прячется конкретный IP сервера, где установлен сервис. Проблема в том, что отдел, занимающийся нашей инфраструктурой очень часто меняет нам сервера, поэтому IP меняются примерно раз в неделю, при этом сервисы сохраняют за собой DNS имена. Это бы совсем никого не беспокоило, если бы несколько раз сервера не уезжали в такой сегмент сети нашей компании, который недоступен для разработчиков. Мы хотим написать скрипт, который опрашивает веб-сервисы, получает их IP, выводит информацию в стандартный вывод в виде: <URL сервиса> - <его IP>. Также, должна быть реализована возможность проверки текущего IP сервиса c его IP из предыдущей проверки. Если проверка будет провалена - оповестить об этом в стандартный вывод сообщением: [ERROR] <URL сервиса> IP mismatch: <старый IP> <Новый IP>. Будем считать, что наша разработка реализовала сервисы: drive.google.com, mail.google.com, google.com.
+```
+import socket
+import sys
+
+services = [service.strip() for service in sys.argv[1].split(',')]
+
+with open('lastcheck', 'r') as f:
+    lastresults = f.readlines()
+
+results = ''
+
+for service in services:
+    try:
+        ip = socket.gethostbyname(service)
+        oldip = 0
+        for lastresult in lastresults:
+            if lastresult.find(service) != -1:
+                if lastresult.find(ip) == -1:
+                    oldip = lastresult.split(' - ')[1].replace('\n','')
+                    print('[ERROR] ', service, 'IP mismatch ', oldip, ip)
+                    break
+        if oldip == 0:
+            print(' - '.join([service, ip]))
+            results += ' - '.join([service, ip])
+            results += '\n'
+
+    except socket.gaierror:
+        print('Hostname not found')
+
+with open('lastcheck', 'w+') as f:
+    f.write(results)
+```
 
 ## Дополнительное задание (со звездочкой*) - необязательно к выполнению
 
