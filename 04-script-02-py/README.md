@@ -79,36 +79,39 @@ for result in result_os.split('\n'):
 ```
 import socket
 import sys
+import json
 
 services = [service.strip() for service in sys.argv[1].split(',')]
 
-with open('lastcheck', 'r') as f:
-    lastresults = f.readlines()
+with open('lastcheck.json', 'r') as f:
+    try:
+        lastresults = json.load(f)
+    except:
+        lastresults = {}
 
-results = ''
+results = {}
 
 for service in services:
     try:
         ip = socket.gethostbyname(service)
         oldip = 0
-        for lastresult in lastresults:
-            if lastresult.find(service) != -1:
-                if lastresult.find(ip) == -1:
-                    oldip = lastresult.split(' - ')[1].replace('\n','')
-                    print('[ERROR] ', service, 'IP mismatch ', oldip, ip)
-                    results += ' - '.join([service, ip])
-                    results += '\n'
-                    break
+
+        if lastresults.get(service):
+            if lastresults.get(service) != ip:
+                oldip = lastresults.get(service)
+                print('[ERROR] ', service, 'IP mismatch ', oldip, ip)
+                results[service] = ip
+
         if oldip == 0:
             print(' - '.join([service, ip]))
-            results += ' - '.join([service, ip])
-            results += '\n'
+            results[service] = ip
 
     except socket.gaierror:
         print('Hostname not found')
 
-with open('lastcheck', 'w+') as f:
-    f.write(results)
+with open('lastcheck.json', 'w+') as f:
+    f.write(json.dumps(results))
+
 ```
 
 ## Дополнительное задание (со звездочкой*) - необязательно к выполнению
