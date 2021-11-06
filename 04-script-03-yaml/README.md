@@ -38,6 +38,47 @@
 
 2. В прошлый рабочий день мы создавали скрипт, позволяющий опрашивать веб-сервисы и получать их IP. К уже реализованному функционалу нам нужно добавить возможность записи JSON и YAML файлов, описывающих наши сервисы. Формат записи JSON по одному сервису: { "имя сервиса" : "его IP"}. Формат записи YAML по одному сервису: - имя сервиса: его IP. Если в момент исполнения скрипта меняется IP у сервиса - он должен так же поменяться в yml и json файле.
 
+```
+import socket
+import sys
+import json
+import yaml
+
+services = [service.strip() for service in sys.argv[1].split(',')]
+
+with open('lastcheck.yaml', 'r') as f:
+    try:
+        lastresults = yaml.full_load(f)
+    except:
+        lastresults = {}
+
+results = {}
+
+for service in services:
+    try:
+        ip = socket.gethostbyname(service)
+        oldip = 0
+
+        if lastresults.get(service):
+            if lastresults.get(service) != ip:
+                oldip = lastresults.get(service)
+                print('[ERROR] ', service, 'IP mismatch ', oldip, ip)
+                results[service] = ip
+
+        if oldip == 0:
+            print(' - '.join([service, ip]))
+            results[service] = ip
+
+    except socket.gaierror:
+        print('Hostname not found')
+
+with open('lastcheck.yaml', 'w+') as f:
+    dumpfile = yaml.dump(results, f)
+
+with open('lastcheck.json', 'w+') as f:
+    f.write(json.dumps(results))
+```
+
 ## Дополнительное задание (со звездочкой*) - необязательно к выполнению
 
 Так как команды в нашей компании никак не могут прийти к единому мнению о том, какой формат разметки данных использовать: JSON или YAML, нам нужно реализовать парсер из одного формата в другой. Он должен уметь:
