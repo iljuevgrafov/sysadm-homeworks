@@ -89,6 +89,39 @@ with open('lastcheck.json', 'w+') as f:
    * При обнаружении ошибки в исходном файле - указать в стандартном выводе строку с ошибкой синтаксиса и её номер
    * Полученный файл должен иметь имя исходного файла, разница в наименовании обеспечивается разницей расширения файлов
 
+```
+import sys
+import json
+import yaml
+
+filename = sys.argv[1]
+
+format = filename.split('.')[1]
+
+if format not in ['json','yaml']:
+    print('Unrecognized file format name')
+    exit()
+
+with open(filename, 'r+') as f:
+    if format == 'json':
+        try:
+            data = json.load(f)
+            with open('inputfile.yaml', 'w+') as yamlfile:
+                doc = yaml.dump(data, yamlfile)
+
+        except json.decoder.JSONDecodeError as e:
+            print(e)
+	    
+    else:
+        try:
+            data = yaml.full_load(f)
+            print(data)
+            with open('inputfile.json', 'w+') as jsonfile:
+                jsonfile.write(json.dumps(data))
+
+        except yaml.parser.ParserError as e:
+            print(e)
+```
 ---
 
 ### Как оформить ДЗ?
